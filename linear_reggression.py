@@ -1,6 +1,33 @@
+with open('train.csv', 'r') as f:
+    #read from csv line by line, rstrip helps to remove '\n' at the end of line
+    lines = [line.rstrip() for line in f]
+
+dat = []
+for line in lines:
+    words = line.split(',')
+    tup = (words[0],words[1])
+    dat.append(tup)
+a = []
+b = []
+for i in range(1, len(dat)):
+    a.append(dat[i][0])
+    b.append(dat[i][1])
+x = []
+y = []
+for i in range(len(a)):
+    x.insert(i, float(a[i]))
+    y.insert(i, float(b[i]))
+
+
+
+
+
 #used as the input value of the algoirthm
-x = [17, 13, 12, 15, 16, 14, 16, 16, 18, 19]
-y = [94, 73, 59, 80, 93, 85, 66, 79, 77, 91]
+#x = [17, 13, 12, 15, 16, 14, 16, 16, 18, 19]
+#y = [94, 73, 59, 80, 93, 85, 66, 79, 77, 91]
+
+
+
 
 x_len = len(x)
 y_len = len(y)
@@ -22,54 +49,54 @@ y_mean = float(y_sum) / y_len
 
 #       _
 #find x-x for eaach row
-a = [] 
+a = []
 for i in x:
     a.append(round(i - x_mean,2))
-;
-   
+
+
 #       _
 #find y-y for eaach row
-b = [] 
+b = []
 for i in y:
     b.append(round(i - y_mean,2))
-;
+
 
 
 #find (x - mean(x)) * (y - mean(y))
 c = []
 for i in range(0, x_len, 1):
     c.append(round(a[i] * b[i],2))
-;
+
 
 #find sum of c
 c_sum = 0
 for i in c:
     c_sum =round(c_sum + i, 2)
-;
+
 
 
 #find (x - mean(x))^2
-d = [] 
+d = []
 for i in a:
     d.append(round(i * i, 2))
-;
+
 #find sum of d
 d_sum = 0
 for i in d:
     d_sum = round(d_sum + i, 2)
-;
+
 
 
 #find (y - mean(y))^2
 e = []
 for i in b:
    e.append(round(i * i, 2))
-;
+
 #find sum of e
 e_sum = 0
 for i in e:
     e_sum = round(e_sum + i,2)
-;
+
 
 
 #find r = sum( ((x - mean(x))^2)((y - mean(y))^2) )
@@ -100,9 +127,12 @@ A = round(y_mean - (B * x_mean), 3)
 
 ######################################
 
-#make actual (linear) prediction here 
+#make actual (linear) prediction here
 
 ######################################
+
+
+#testing our model
 
 
 #make user to enter the input of the algorithm
@@ -113,23 +143,7 @@ X = int(input("enter the input you want to give in the algorithm (only one numbe
 
 Y = round(A + (B * X), 3)
 
-#print the intermediate values for debug
-
-
-print("\n\n x \t\t y \t\t x-mean(x) \t\t y-mean(y) \t\t (x-mean(x))(y- mean(y)) \t (x-mean(x))^2 \t\t (y-mean(y))^2 \t\t \n")
-for i in range(0, x_len+1, 1):
-    if i < x_len :
-        print(str(x[i]) + " \t\t " + str(y[i]) + " \t\t " + str(a[i]) + " \t\t\t " + str(b[i]) + " \t\t\t\t" + str(c[i]) + "\t\t\t\t" + str(d[i]) + " \t\t\t " + str(e[i]))
-    elif i == x_len :
-        print("\nmean(x) \t mean(y) \t\t\t\t     \t\t\t\t sum \t\t\t\t sum \t\t\t sum")
-        print(str(x_mean) + " \t\t " + str(y_mean) + " \t\t\t\t     \t\t\t\t\t " + str(c_sum) + " \t\t\t\t " + str(d_sum) + " \t\t\t " + str(e_sum) )
-    ;
-;
-
-
-
 
 
 #output the predicted value of Y
 print("\n\nThe value of Y axis is =   " + str(Y))
-
